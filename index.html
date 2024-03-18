@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de QRcode</title>
+</head>
+<body>
+    <h1>Gerador de QRcode</h1>
+    <!-- Campos de entrada para nome e curso -->
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome"><br><br>
+    
+    <label for="curso">Curso:</label>
+    <input type="text" id="curso" name="curso"><br><br>
+
+    <!-- Botão para gerar o QR Code -->
+    <button onclick="generateQRCode()">Gerar QR Code</button><br><br>
+
+    <!-- Div para exibir o QR Code -->
+    <div id="qrcode"></div>
+    
+    <script>
+        function generateQRCode() {
+            var nome = document.getElementById('nome').value;
+            var curso = document.getElementById('curso').value;
+
+            // Verifica se os campos estão preenchidos
+            if(nome && curso) {
+                // Concatena nome e curso para formar o texto do QR Code
+                var textoQRCode = encodeURIComponent(nome + ", " + curso);
+
+                // URL da API para gerar o QR Code
+                var url = "https://api.qrserver.com/v1/create-qr-code/?data=" + textoQRCode + "&size=200x200";
+
+                // Exibindo o QR Code na div
+                document.getElementById('qrcode').innerHTML = "<img src='" + url + "' alt='QR Code'>";
+            } else {
+                alert("Por favor, preencha todos os campos!");
+            }
+        }
+    </script>
+</body>
+</html>
